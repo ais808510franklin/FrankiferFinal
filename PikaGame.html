@@ -1,0 +1,325 @@
+<html>
+<head>
+<title> Attack of the Magikarps </title>
+
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome.js"></script>
+
+<center>
+<script src="processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+
+
+/* @pjs globalKeyEvents = "true"; */ 
+
+
+//MAGIKARP INTEGERS
+PImage background;
+PImage topmagi;
+PImage sectopmagi;
+PImage midmagi;
+PImage secbotmagi;
+PImage botmagi;
+
+int topmagiX;
+int sectopmagiX;
+int midmagiX;
+int secbotmagiX;
+int botmagiX; 
+
+int topmagiY;
+int sectopmagiY;
+int midmagiY;
+int secbotmagiY;
+int botmagiY;
+
+int topmagid;
+int sectopmagid;
+int midmagid;
+int secbotmagid; 
+int botmagid;
+
+int themesong;
+
+// Pikachu character
+PImage pika;
+
+PFont cartoon;
+
+int pikaalive;
+int pikay;
+int pikax;
+
+
+int difficult;
+
+
+int pointsCounter;
+
+void setup()
+
+{
+
+size( 800, 500 );
+
+frameRate( 30 );
+
+//Pikachu
+pika = loadImage("images/RunningPikachu.gif");
+
+pikay = 200;
+pikax = 100; 
+
+pikaalive = 0;
+
+background = loadImage("images/PokeWall.jpg");
+
+cartoon = loadFont("images/ComicsCarToon");
+
+topmagi = loadImage("images/topmagi.gif");
+sectopmagi = loadImage("images/sectopmagi.gif");
+midmagi = loadImage("images/midmagi.gif");
+secbotmagi = loadImage("images/secbotmagi.gif");
+botmagi = loadImage("images/botmagi.gif");
+
+topmagiX = random(800,2000);
+sectopmagiX = random(800,2000);
+midmagiX = random(800,2000);
+secbotmagiX = random(800,2000);
+botmagiX = random(800,2000);
+
+topmagiY = 0;
+sectopmagiY=96.3;
+midmagiY = 192.6;
+secbotmagiY = 288.9;
+botmagiY = 385.2;
+
+themesong = 0;
+
+pointsCounter = 0;
+
+difficult =0;
+}
+
+
+void draw()
+{
+
+image(background,0,0,800,500);
+
+//Pikachu
+
+if(pikaalive ==0)
+	{
+	image(pika,pikax,pikay,135,96.3);
+	}
+
+if(pikay < 0)
+	{
+		pikay = 0;
+	}
+if (pikay > 400)
+	{
+		pikay = 400;
+	}
+
+
+// MAGIKARPS IMAGES
+image(topmagi,topmagiX,topmagiY,100,96.3);
+image(sectopmagi,sectopmagiX,96.3,100,96.3);
+image(midmagi,midmagiX,192.6,100,96.3);
+image(secbotmagi,secbotmagiX,288.9,100,96.3);
+image(botmagi,botmagiX,385.2,100,96.3); 
+
+// DIFFICULTY LEVELS
+if (difficult == 0)
+{
+topmagiX = topmagiX - 20;
+sectopmagiX = sectopmagiX - 20;
+midmagiX = midmagiX - 20;
+secbotmagiX = secbotmagiX - 20;
+botmagiX = botmagiX - 20;
+}
+
+if (pointsCounter >15)
+{
+topmagiX = topmagiX - 5;
+sectopmagiX = sectopmagiX -5;
+midmagiX = midmagiX - 5;
+secbotmagiX = secbotmagiX - 5;
+botmagiX = botmagiX - 5;
+}
+
+
+if (pointsCounter >30)
+{
+topmagiX = topmagiX - 5;
+sectopmagiX = sectopmagiX - 5;
+midmagiX = midmagiX - 5;
+secbotmagiX = secbotmagiX - 5;
+botmagiX = botmagiX - 5;
+}
+
+
+if (pointsCounter >45)
+{
+topmagiX = topmagiX - 10;
+sectopmagiX = sectopmagiX - 10;
+midmagiX = midmagiX - 10;
+secbotmagiX = secbotmagiX - 10;
+botmagiX = botmagiX - 10;
+}
+
+if (pointsCounter >60)
+{
+topmagiX = topmagiX - 10;
+sectopmagiX = sectopmagiX - 10;
+midmagiX = midmagiX - 10;
+secbotmagiX = secbotmagiX - 10;
+botmagiX = botmagiX - 10;
+}
+
+
+// MAGIKARPS PLACEMENT
+if (topmagiX < -100)
+	{
+		topmagiX = random(800,2000);
+	}
+
+if (sectopmagiX < -100)
+	{
+		sectopmagiX = random(800,2000);
+	}
+
+if (midmagiX < -100)
+	{
+		midmagiX = random(800,2000);
+	}
+
+if (secbotmagiX < -100)
+	{
+		secbotmagiX = random(800,2000);
+	}
+	
+if (botmagiX < -100)
+	{
+		botmagiX = random(800,2000);
+	}
+
+
+// POINTS SYSTEM
+fill(0,0,0);
+textFont(cartoon,50);
+text(pointsCounter,30,470);
+
+if (topmagiX < 100 && topmagiX > 80)
+	{
+		pointsCounter = pointsCounter + 1;
+	}
+	
+if (sectopmagiX < 100 && sectopmagiX > 80)
+	{
+		pointsCounter = pointsCounter + 1;
+	}
+	
+if (midmagiX < 100 && midmagiX > 80)
+	{
+		pointsCounter = pointsCounter + 1;
+	}
+	
+if (secbotmagiX < 100 && secbotmagiX > 80)
+	{
+		pointsCounter = pointsCounter + 1;
+	}
+
+if (botmagiX < 100 && botmagiX > 80)
+	{
+		pointsCounter = pointsCounter + 1;
+	}
+
+
+
+//COLLISION DETECTION
+
+    topmagid = (int)sqrt(sq(topmagiX-pikax)+sq(topmagiY-pikay));
+    sectopmagid = (int)sqrt(sq(sectopmagiX-pikax)+sq(sectopmagiY-pikay));
+    midmagid = (int)sqrt(sq(midmagiX-pikax)+sq(midmagiY-pikay));
+    secbotmagid = (int)sqrt(sq(secbotmagiX-pikax)+sq(secbotmagiY-pikay));
+    botmagid = (int)sqrt(sq(botmagiX-pikax)+sq(botmagiY-pikay));
+    
+if (topmagid < 85)
+   	{
+    	pikaalive = 1;
+    		
+    }
+    
+if (sectopmagid < 85)
+   	{
+    	pikaalive = 1;
+    		
+    }
+
+if (midmagid < 85)
+   	{
+    	pikaalive = 1;
+    		
+    }
+
+if (secbotmagid < 85)
+   	{
+    	pikaalive = 1;
+    		
+    }
+
+if (botmagid < 85)
+   	{
+    	pikaalive = 1;
+    		
+    }
+
+if (pikaalive == 1)
+	{
+		link("GameOver.html");
+		sessionStorage.transferx1 = pointsCounter;
+	}
+    
+
+
+}
+
+
+// GAME KEYS
+void keyPressed()
+{
+
+if(keyCode == UP )
+	{
+		pikay = pikay - 100;
+	}
+
+if(keyCode == DOWN)
+	{
+		pikay = pikay + 100;
+		themesong = 1;
+	}
+
+if(keyCode == UP && themesong ==0)
+	{
+		soundManager.play('s0');
+		themesong =1;
+	}
+
+    
+
+}
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>
+
